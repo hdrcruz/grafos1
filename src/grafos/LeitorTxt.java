@@ -11,9 +11,9 @@ import java.util.Scanner;
 public class LeitorTxt {
     int[][] dados;
 
-    public Matriz readTxt() throws FileNotFoundException {
+    public Matriz readTxt(File file) throws FileNotFoundException {
 
-        Scanner scanner = new Scanner(new FileReader("dados/nwv_30p_0.1_10")).useDelimiter("]");
+        Scanner scanner = new Scanner(new FileReader(file)).useDelimiter("]");
         String str = scanner.next().replace("[", " ");
         String[] strin = str.split("  | ");
         dados = new int[strin.length-1][strin.length-1];

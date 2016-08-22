@@ -35,4 +35,9 @@ public class Vertice {
     public void diminuirGrau(){
         grau--;
     }
+
+    @Override
+    public String toString() {
+        return "Vertice " + this.getNome();
+    }
 }

@@ -1,8 +1,13 @@
 package grafos;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 
 import java.io.File;
@@ -17,29 +22,36 @@ public class Controller implements Initializable{
 
     @FXML
     private TextArea textArea;
+    @FXML
+    private TextField textField;
+    @FXML
+    private ComboBox comboBox;
 
 
     public Controller() throws FileNotFoundException {
 
         leitor = new LeitorTxt();
         this.grafo = new Grafo();
-        grafo.laplaciana2Grafo(leitor.readTxt());
+
     }
 
     public void showAdjacencia() throws FileNotFoundException {
         textArea.clear();
         Matriz m = grafo.getMatrizAdjacencia();
         textArea.setText(m.toString());
-        leitor.readTxt();
 
     }
 
     public void showIncidencia(){
+
         textArea.clear();
         Matriz m = grafo.getMatrizIncidencia();
         textArea.setText(m.toString());
-        if (grafo.hasCaminhoEuleriano()) textArea.appendText("Possui Caminho Euleriano!\n");
-        if (grafo.hasCircuitoEuleriano()) textArea.appendText("Possui Circuito Euleriano!");
+
+
+
+
+
     }
 
     public void showDiagonal(){
@@ -54,9 +66,38 @@ public class Controller implements Initializable{
         textArea.setText(m.toString());
     }
 
-    public void openFile(){
+    public void showVerticeInfo(){
+        Vertice v = (Vertice) comboBox.getSelectionModel().getSelectedItem();
+        StringBuilder str = new StringBuilder();
+        str.append("Vertice " + v.getNome() + ":\n");
+        str.append("Grau: " + v.getGrau() + "\n");
+        str.append("Vertices Adjacentes: { " + grafo.verticesAdjacentes(v).replace(" ", ", ") + " }\n");
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText(null);
+        alert.setContentText(str.toString());
+        alert.showAndWait();
+    }
+
+    public void openFile() throws FileNotFoundException {
         FileChooser fc = new FileChooser();
         File file = fc.showOpenDialog(null);
+        if(file!=null) grafo.laplaciana2Grafo(leitor.readTxt(file));
+        textField.setText(grafo.getFormulaMatematica());
+        ObservableList<Vertice> listavertices = FXCollections.observableArrayList(grafo.getVertices());
+        comboBox.setItems(listavertices);
+
+    }
+
+    public void showEuleriano(){
+        StringBuilder str = new StringBuilder();
+        if (grafo.hasCaminhoEuleriano()) str.append("Possui Caminho Euleriano!\n");
+        if (grafo.hasCircuitoEuleriano()) str.append("Possui Circuito Euleriano!\n");
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText(null);
+        alert.setContentText(str.toString());
+        alert.showAndWait();
     }
 
     @Override

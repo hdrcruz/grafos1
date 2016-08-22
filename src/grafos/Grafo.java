@@ -146,6 +146,17 @@ public class Grafo {
         return str.toString().trim();
     }
 
+    public String getFormulaMatematica(){
+        StringBuilder str = new StringBuilder();
+        str.append("G = ({");
+        for (Vertice v: vertices) str.append(v.getNome() + ",");
+        str.append("}");
+        str.append("; {");
+        for (Aresta a: arestas) str.append(a.toString() + ",");
+        str.append("})");
+        return str.toString();
+    }
+
 
 
 

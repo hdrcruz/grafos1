@@ -41,5 +41,8 @@ public class Aresta implements  Comparable<Aresta>{
         return a.getOrigem() == this.origem && a.getDestino() == this.destino;
     }
 
-
+    @Override
+    public String toString() {
+        return "(" + this.origem + "," + this.destino + ")";
+    }
 }
