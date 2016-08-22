@@ -157,6 +157,11 @@ public class Grafo {
         return str.toString();
     }
 
+    public void clearGrafo(){
+        vertices.clear();
+        arestas.clear();
+    }
+
 
 
 

@@ -18,7 +18,6 @@ import java.util.ResourceBundle;
 public class Controller implements Initializable{
     LeitorTxt leitor;
     private Grafo grafo;
-    Matriz laplaciana;
 
     @FXML
     private TextArea textArea;
@@ -29,17 +28,14 @@ public class Controller implements Initializable{
 
 
     public Controller() throws FileNotFoundException {
-
         leitor = new LeitorTxt();
         this.grafo = new Grafo();
-
     }
 
     public void showAdjacencia() throws FileNotFoundException {
         textArea.clear();
         Matriz m = grafo.getMatrizAdjacencia();
         textArea.setText(m.toString());
-
     }
 
     public void showIncidencia(){
@@ -47,11 +43,6 @@ public class Controller implements Initializable{
         textArea.clear();
         Matriz m = grafo.getMatrizIncidencia();
         textArea.setText(m.toString());
-
-
-
-
-
     }
 
     public void showDiagonal(){
@@ -73,7 +64,7 @@ public class Controller implements Initializable{
         str.append("Grau: " + v.getGrau() + "\n");
         str.append("Vertices Adjacentes: { " + grafo.verticesAdjacentes(v).replace(" ", ", ") + " }\n");
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information Dialog");
+        alert.setTitle("Vertice Info");
         alert.setHeaderText(null);
         alert.setContentText(str.toString());
         alert.showAndWait();
@@ -82,19 +73,33 @@ public class Controller implements Initializable{
     public void openFile() throws FileNotFoundException {
         FileChooser fc = new FileChooser();
         File file = fc.showOpenDialog(null);
-        if(file!=null) grafo.laplaciana2Grafo(leitor.readTxt(file));
-        textField.setText(grafo.getFormulaMatematica());
-        ObservableList<Vertice> listavertices = FXCollections.observableArrayList(grafo.getVertices());
-        comboBox.setItems(listavertices);
+        if(file!=null){
+            grafo.clearGrafo();
+            grafo.laplaciana2Grafo(leitor.readTxt(file));
+            textField.setText(grafo.getFormulaMatematica());
+            ObservableList<Vertice> listavertices = FXCollections.observableArrayList(grafo.getVertices());
+            comboBox.setItems(null);
+            comboBox.setItems(listavertices);
+        }
+        else{
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("ARQUIVO NULO");
+            alert.setHeaderText(null);
+            alert.setContentText("Arquivo escolhido é nulo!");
+            alert.showAndWait();
+
+        }
+
 
     }
 
     public void showEuleriano(){
         StringBuilder str = new StringBuilder();
-        if (grafo.hasCaminhoEuleriano()) str.append("Possui Caminho Euleriano!\n");
-        if (grafo.hasCircuitoEuleriano()) str.append("Possui Circuito Euleriano!\n");
+        if (grafo.hasCaminhoEuleriano()) str.append("O grafo possui Caminho Euleriano!\n");
+        if (grafo.hasCircuitoEuleriano()) str.append("O grafo possui Circuito Euleriano!\n");
+        if (str.length() == 0) str.append("O grafo não possui caminho, nem circuito Euleriano!\n");
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information Dialog");
+        alert.setTitle("Caminho/Circuito Euleriando");
         alert.setHeaderText(null);
         alert.setContentText(str.toString());
         alert.showAndWait();

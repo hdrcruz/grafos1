@@ -65,6 +65,5 @@
          <font>
             <Font size="20.0" />
          </font></TextArea>
-      <ComboBox fx:id="comboBox1" layoutX="20.0" layoutY="180.0" prefWidth="150.0" />
    </children>
 </VBox>
