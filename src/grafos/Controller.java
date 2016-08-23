@@ -89,10 +89,7 @@ public class Controller implements Initializable{
             alert.setHeaderText(null);
             alert.setContentText("Arquivo escolhido é nulo!");
             alert.showAndWait();
-
         }
-
-
     }
 
     public void showEuleriano(){
@@ -101,14 +98,12 @@ public class Controller implements Initializable{
         if (grafo.hasCircuitoEuleriano()) str.append("O grafo possui Circuito Euleriano!\n");
         if (str.length() == 0) str.append("O grafo não possui caminho, nem circuito Euleriano!\n");
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Caminho/Circuito Euleriando");
+        alert.setTitle("Caminho/Circuito Euleriano");
         alert.setHeaderText(null);
         alert.setContentText(str.toString());
         alert.showAndWait();
     }
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
-    }
+    public void initialize(URL location, ResourceBundle resources) {}
 }

@@ -201,7 +201,7 @@ public class Matriz {
             }
             anterior = aux2;
         }
-        String exibir = "\n\n  Polinômio Característico da Matriz Laplaciana: \n  p(t) = ";
+        String exibir = "\n\n  Polinômio Característico da Matriz Laplaciana: \n  p(t) = 1 ";
         for (int i = 0; i < a.linhas; i++) {
             exibir = exibir.concat(String.valueOf(p[i])+ "  ");
         }
