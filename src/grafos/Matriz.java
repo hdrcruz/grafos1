@@ -143,4 +143,70 @@ public class Matriz {
     }
 
 
+    public Matriz multMatriz(Matriz m){
+        int[][] c = new int[linhas][m.getColunas()];
+        for (int i = 0; i < linhas; i++){
+            for (int j = 0; j < m.getColunas(); j++){
+                for (int k = 0; k < linhas; k++) {
+                    c[i][j] += (dados[i][k] * m.getElemento(k,j));
+                }
+            }
+        }
+        Matriz result = new Matriz(c);
+        return result;
+    }
+
+    public int tracoMatriz(){
+        int total = 0;
+        for (int i = 0; i < linhas; i++) {
+            total += dados[i][i];
+        }
+        return total;
+    }
+
+    public Matriz produtoIdentidade(int valor, int tamanho){
+        int[][] c = new int[tamanho][tamanho];
+        for (int i = 0; i < tamanho; i++) {
+            for (int j = 0; j < tamanho; j++) {
+                if(i == j) c[i][j] = valor;
+                else c[i][j] = 0;
+            }
+        }
+        Matriz m = new Matriz(c);
+        return m;
+    }
+
+    public String polinomioCaracteristico(){
+
+
+        Matriz a = new Matriz(this.dados);
+        int[] p = new int[a.linhas];
+        p[0] = -1 * this.tracoMatriz();
+        Matriz anterior;
+        Matriz aux1;
+        Matriz aux2;
+        Matriz aux3;
+        anterior = new Matriz(a.getDados());
+
+        for (int i = 1; i < a.linhas; i++) {
+            aux3 = this.produtoIdentidade(p[i-1], a.linhas);
+            aux1 = anterior.addMatriz(aux3);
+            aux2 = a.multMatriz(aux1);
+            int d = i+1;
+            try{
+                p[i] = aux2.tracoMatriz()/d;
+                p[i] *= -1;
+            }catch(Exception x){
+                System.out.println("erro");
+            }
+            anterior = aux2;
+        }
+        String exibir = "\n\n  Polinômio Característico da Matriz Laplaciana: \n  p(t) = ";
+        for (int i = 0; i < a.linhas; i++) {
+            exibir = exibir.concat(String.valueOf(p[i])+ "  ");
+        }
+        return exibir;
+    }
+
+
 }

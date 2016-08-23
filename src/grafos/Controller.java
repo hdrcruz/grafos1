@@ -55,6 +55,7 @@ public class Controller implements Initializable{
         textArea.clear();
         Matriz m = grafo.getMatrizLaplaciana();
         textArea.setText(m.toString());
+        textArea.appendText(m.polinomioCaracteristico());
     }
 
     public void showVerticeInfo(){
@@ -68,6 +69,7 @@ public class Controller implements Initializable{
         alert.setHeaderText(null);
         alert.setContentText(str.toString());
         alert.showAndWait();
+
     }
 
     public void openFile() throws FileNotFoundException {
