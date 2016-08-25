@@ -1,5 +1,9 @@
-package grafos;
+package grafos.controller;
 
+import grafos.model.Grafo;
+import grafos.model.LeitorTxt;
+import grafos.model.Matriz;
+import grafos.model.Vertice;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,7 +19,7 @@ import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Controller implements Initializable{
+public class MainController implements Initializable{
     LeitorTxt leitor;
     private Grafo grafo;
 
@@ -27,7 +31,7 @@ public class Controller implements Initializable{
     private ComboBox comboBox;
 
 
-    public Controller() throws FileNotFoundException {
+    public MainController() throws FileNotFoundException {
         leitor = new LeitorTxt();
         this.grafo = new Grafo();
     }

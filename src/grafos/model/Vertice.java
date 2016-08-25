@@ -1,4 +1,4 @@
-package grafos;
+package grafos.model;
 
 /**
  * Created by hdrcruz on 19/08/2016.

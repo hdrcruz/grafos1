@@ -1,4 +1,4 @@
-package grafos;
+package grafos.model;
 
 import java.util.Random;
 
