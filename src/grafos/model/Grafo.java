@@ -150,9 +150,11 @@ public class Grafo {
         StringBuilder str = new StringBuilder();
         str.append("G = ({");
         for (Vertice v: vertices) str.append(v.getNome() + ",");
+        str.deleteCharAt(str.length()-1);
         str.append("}");
         str.append("; {");
         for (Aresta a: arestas) str.append(a.toString() + ",");
+        str.deleteCharAt(str.length()-1);
         str.append("})");
         return str.toString();
     }
