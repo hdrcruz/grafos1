@@ -1,5 +1,6 @@
 package grafos.controller;
 
+import grafos.Main;
 import grafos.model.Grafo;
 import grafos.model.LeitorTxt;
 import grafos.model.Matriz;
@@ -7,15 +8,18 @@ import grafos.model.Vertice;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -29,6 +33,8 @@ public class MainController implements Initializable{
     private TextField textField;
     @FXML
     private ComboBox comboBox;
+    @FXML
+    private Button btnVerticeInfo;
 
 
     public MainController() throws FileNotFoundException {
@@ -62,7 +68,7 @@ public class MainController implements Initializable{
         textArea.appendText(m.polinomioCaracteristico());
     }
 
-    public void showVerticeInfo(){
+    public void showVerticeInfo() throws IOException {
         Vertice v = (Vertice) comboBox.getSelectionModel().getSelectedItem();
         StringBuilder str = new StringBuilder();
         str.append("Vertice " + v.getNome() + ":\n");
@@ -75,6 +81,34 @@ public class MainController implements Initializable{
         alert.showAndWait();
 
     }
+
+
+
+    public void novoGrafo(){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/EditVerticeView.fxml"));
+            Parent root1 = fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Novo Grafo");
+            stage.setScene(new Scene(root1,800,600));
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(Main.getPrimaryStage());
+            EditVerticeController control = fxmlLoader.getController();
+            control.setGrafo(grafo);
+            stage.showAndWait();
+            textField.setText(grafo.getFormulaMatematica());
+            ObservableList<Vertice> listavertices = FXCollections.observableArrayList(grafo.getVertices());
+            comboBox.setItems(null);
+            comboBox.setItems(listavertices);
+
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+
 
     public void openFile() throws FileNotFoundException {
         FileChooser fc = new FileChooser();

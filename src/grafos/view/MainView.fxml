@@ -8,6 +8,11 @@
    <children>
       <HBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="695.0">
          <children>
+            <Button mnemonicParsing="false" onAction="#novoGrafo" text="Novo">
+               <HBox.margin>
+                  <Insets right="10.0" top="10.0" />
+               </HBox.margin>
+            </Button>
             <Button mnemonicParsing="false" onAction="#openFile" text="Abrir">
                <HBox.margin>
                   <Insets right="10.0" top="10.0" />
@@ -49,7 +54,7 @@
                   <Insets right="10.0" />
                </HBox.margin>
             </ComboBox>
-            <Button mnemonicParsing="false" onAction="#showVerticeInfo" text="Vertice Info" />
+            <Button fx:id="btnVerticeInfo" mnemonicParsing="false" onAction="#showVerticeInfo" text="Vertice Info" />
          </children>
          <opaqueInsets>
             <Insets />
